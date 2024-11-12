@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    height: 100vh;
+    overflow: auto;
+}
+
+h1, h2 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.back-arrow, .burger-menu {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #202020;
+    color: #ffffff;
+    z-index: 1000;
+    transition: right 0.3s ease;
+    padding: 20px;
+}
+
+.sidebar-menu.active {
+    right: 0;
+}
+
+.nav-link {
+    color: #ccc;
+}
+
+.nav-link:hover {
+    color: #fff;
+    background-color: #333;
+}
+
+.container {
+    max-width: 100%;
+}
+
+.section-content h3 {
+    font-size: 1.25rem;
+    color: #ccc;
+    margin-top: 1rem;
+}
+
+.section-content h4 {
+    font-size: 1.1rem;
+    color: #888;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
+
+.section-content p, .section-content ul, .section-content pre {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+pre {
+    font-size: 0.85rem;
+    background: #222;
+    padding: 0.5rem;
+    border-radius: 5px;
+}

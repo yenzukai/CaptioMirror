@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    color: white;
+    font-family: "Raleway", "sans-serif";
+}
+
+.mt-4 .btn {
+    margin-top: 35px;
+    font-size: 1.70rem;
+    font-weight: 650;
+    letter-spacing: 2.5px;
+    background: none;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+}
+
+.mt-4 .btn:active {
+    background-color: #ffffff;
+    color:#151515;
+    border-color: #ffffff;
+}
+
+@media (orientation: landscape) {
+    #cm-logo .img-fluid {
+        max-width: 30%;
+        height: auto;
+    }
+}
+
+@media (orientation: portrait) {
+    #cm-logo .img-fluid {
+        max-width: 50%;
+        height: auto;
+    }
+}

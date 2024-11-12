@@ -1,0 +1,16 @@
+.weather-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: start;
+}
+
+#temperature {
+    font-size: 3rem;
+    color: #fff;
+}
+
+#location-info, #wind-speed, #humidity, #heat-index {
+    color: white;
+    margin-bottom: 5px;
+}

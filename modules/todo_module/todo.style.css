@@ -1,0 +1,26 @@
+#todo-list {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#todo-list h3 {
+    font-size: 1.75rem;
+    margin-bottom: 15px;
+}
+
+#list-container {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#list-container li {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+

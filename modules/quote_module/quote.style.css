@@ -1,0 +1,13 @@
+/* Quote of the Day */
+#quote {
+    display: block;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 20px;
+}
+
+#cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.0rem;
+}

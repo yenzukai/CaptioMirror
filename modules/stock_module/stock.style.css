@@ -1,0 +1,14 @@
+/* Stock Prices */
+#stock-prices h2 {
+    font-size: 1.75rem;
+    margin-bottom: 15px;
+}
+
+#stock-prices h4 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+}
+
+#stock-prices p {
+    margin-bottom: 5px;
+}

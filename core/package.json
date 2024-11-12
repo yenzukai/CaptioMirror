@@ -1,0 +1,32 @@
+{
+  "name": "captiomirror",
+  "version": "1.0.0",
+  "description": "IoT-Based Smart Mirror System with AI Assistant",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "keywords": [
+    "captiomirror",
+    "electron",
+    "reactjs",
+    "typescript",
+    "smart",
+    "mirror",
+    "web-application",
+    "ai",
+    "system",
+    "iot"
+  ],
+  "author": "Martin James Rojas, Rogel Navarro, Maria Dolores Gabay",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^32.0.1"
+  },
+  "dependencies": {
+    "artyom.js": "^1.0.6",
+    "dotenv": "^16.4.5",
+    "openai": "^4.56.1"
+  }
+}

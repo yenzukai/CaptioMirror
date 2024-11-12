@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.col-md-6, .col-12 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+    padding: 10px;
+}
+
+.col-md-6 p, .col-12 p {
+    font-size: 14px;
+    line-height: 1;
+}
+
+#logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    max-height: 500px;
+    text-align: center;
+}
+
+/* Landscape Mode */
+@media (orientation: landscape) {
+    .container-fluid {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .row {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .col-md-6 {
+        position: absolute;
+    }
+
+    /* Top-left: DateTime and Stock Prices */
+    .col-md-6:first-child {
+        top: 0;
+        left: 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 20px;
+    }
+
+    /* Top-right: Weather */
+    .col-md-6:last-child {
+        top: 0;
+        right: 0;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 20px;
+    }
+
+    /* Center: CaptioMirror Logo */
+    .col-12 {
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .col-12 img {
+        max-height: 500px;
+    }
+
+    /* Bottom-center: Quote of the Day */
+    .row:last-child {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Portrait Mode */
+@media (orientation: portrait) {
+    .container-fluid {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-6, .col-12 {
+        flex: 1 1 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .col-12 img {
+        max-height: 500px;
+        margin-top: -500px;
+    }
+}

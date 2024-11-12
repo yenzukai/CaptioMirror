@@ -1,0 +1,10 @@
+# misc
+
+.env
+.env.development
+.env.production
+node_modules/
+logs
+*.log
+.DS_Store
+Thumbs.db
