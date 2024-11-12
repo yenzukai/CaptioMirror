@@ -161,7 +161,7 @@ $conn->close();
                     <pre><code>sudo apt install git</code></pre>
 
                     <p>4. Clone the CaptioMirror repository from GitHub:</p>
-                    <pre><code>git clone https://github.com/yenzukai/Captiosus/CaptioMirror</code></pre>
+                    <pre><code>git clone https://github.com/yenzukai/CaptioMirror</code></pre>
 
                     <p>5. Copy the CaptioMirror repository to the Apache2 directory:</p>
                     <pre><code>sudo cp -r CaptioMirror /var/www/html/</code></pre>
