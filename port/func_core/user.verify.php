@@ -12,7 +12,7 @@ $message = ''; // To store alert messages
 $email = isset($_POST['email']) ? $_POST['email'] : $_GET['email'];
 $from = isset($_GET['from']) ? $_GET['from'] : null;
 
-if ($from === 'signup' || $from === 'login') {
+if ($from === 'login') {
     // Generate and send verification code
     $verification_code = substr(number_format(time() * rand(), 0, '', ''), 0, 6);
 
@@ -45,7 +45,7 @@ if ($from === 'signup' || $from === 'login') {
         $stmt->bind_param("ss", $verification_code, $email);
 
         if ($stmt->execute()) {
-            $message = "A verification code has been sent to you. Please check your email to proceed.d";
+            $message = "A verification code has been sent to you. Please check your email to proceed.";
         } else {
             $message = "An error occured while updating your record: " . $conn->error;
         }

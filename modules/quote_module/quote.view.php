@@ -3,8 +3,8 @@
     <!-- Bottom Row: Quote of the Day -->
     <div class="row">
         <div class="text-center p-4">
-            <p id="quote">Your quote here</p>
-            <p id="cite">Your cite here</p>
+            <li id="quote">Your quote here</li>
+            <li id="cite">Your cite here</li>
         </div>
     </div>      
 <?php } ?>

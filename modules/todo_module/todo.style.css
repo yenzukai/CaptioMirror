@@ -4,9 +4,9 @@
     max-width: 600px;
 }
 
-#todo-list h3 {
-    font-size: 1.75rem;
-    margin-bottom: 15px;
+#todo-list h1 {
+    font-size: 1.125rem;
+    margin-bottom: 10px;
 }
 
 #list-container {
@@ -15,12 +15,27 @@
 }
 
 #list-container li {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     border-radius: 5px;
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: #ffffff;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
+
+.todo-item {
+    display: flex;
+    align-items: left;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.completed-task {
+    text-decoration: line-through;
+    color: #888;
+}
+
+
+
+
 

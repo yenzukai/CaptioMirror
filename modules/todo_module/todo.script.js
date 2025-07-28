@@ -6,15 +6,24 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch('../port/func_core/save_todo.php', { method: 'GET' })
             .then(response => response.json())
             .then(tasks => {
-                listContainer.innerHTML = '';
+                listContainer.innerHTML = ''; // Clear previous tasks
+
                 tasks.forEach(task => {
+                    if (task.removed) return; // Skip removed tasks
+
                     const li = document.createElement('li');
-                    li.textContent = task.task;
+                    li.classList.add('todo-item');
+                    li.innerHTML = `
+                        <input type="checkbox" ${task.checked ? "checked" : ""} disabled>
+                        <span class="${task.checked ? "completed-task" : ""}">
+                            ${task.task}
+                        </span>
+                    `;
                     listContainer.appendChild(li);
                 });
             })
             .catch(error => console.error('Error fetching tasks:', error));
     }
 
-    fetchTasks();
+    fetchTasks(); // Initial fetch
 });

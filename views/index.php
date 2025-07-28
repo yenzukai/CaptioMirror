@@ -18,6 +18,23 @@
 
     $_SESSION['username'] = $userName; // Store in session
 
+    // Fetch show_background and text size from the database or session
+    $sql = "SELECT show_background, text_size FROM user_preferences WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $showBackground = $row['show_background'] ?? 1;
+        $textSize = $row['text_size'] ?? 'normal';
+    } else {
+        $showBackground = 1;
+        $textSize = 'normal';
+    }
+
+    $_SESSION['text_size'] = $textSize; // Store text size preference
+
     // Fetch the current background path
     $sql = "SELECT background_path FROM users WHERE id = ?";
     $stmt = $conn->prepare($sql);
@@ -93,10 +110,40 @@
             setInterval(checkReload, 2000);
         </script>
 
+        <script>
+            // Poll for text size preference updates
+            setInterval(() => {
+                fetch('../core/check_text_size.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.textSize !== undefined) {
+                            // Determine the scaling factor based on user preference
+                            const scaleFactor = 
+                                data.textSize === 'small' ? 0.75 :  // Reduce size for 'small'
+                                (data.textSize === 'large' ? 1.25 : 1); // Increase size for 'large', 1 is normal
+
+                            // Apply scaling factor to font size
+                            document.body.style.fontSize = `${scaleFactor * 18}px`;  // Default base font size is 16px
+
+                            document.querySelectorAll('h3, h4, h5, h6').forEach((el) => {
+                                el.style.fontSize = `${scaleFactor * 24}px`; // For larger headings
+                            });
+
+                            document.querySelectorAll('h2, li').forEach((el) => {
+                                el.style.fontSize = `${scaleFactor * 16}px`; // For smaller text (paragraphs, list items, etc.)
+                            });
+                        }
+                    })
+                    .catch(error => console.error('Error fetching text size:', error));
+            }, 2000); // Check every 2 seconds
+        </script>
+
     </head>
     <body>
         <div class="container-fluid vh-100 d-flex flex-column justify-content-between">
-            
+
+            <?php if ($modules['Scheduler']['active']) { include '../modules/schedule_module/schedule.view.php'; } ?>
+
             <!-- Top Section: DateTime, Weather, Stock Prices, and ToDo List -->
             <div class="row">
                 <?php if ($modules['DateTime']['active']) { include '../modules/datetime_module/datetime.view.php'; } ?>
@@ -107,9 +154,12 @@
             <div id="weather-container">
                 <?php if ($modules['Weather']['active']) { include '../modules/weather_module/weather.view.php'; } ?>
             </div>
-
-            <!-- Center: Logo -->
-            <div id="logo-container">
+            <div id="music-container">
+                <?php if ($modules['Music Player']['active']) { include '../modules/mplayer_module/mplayer.view.php'; } ?>
+            </div>
+            
+            <!-- Background Logo -->
+            <div id="logo-container" class="<?= $showBackground ? '' : 'hidden'; ?>">
                 <img src="<?php echo htmlspecialchars($backgroundPath); ?>" alt="CaptioMirror Logo" class="img-fluid">
             </div>
 
@@ -148,6 +198,29 @@
         <?php if ($modules['Scheduler']['active']) { ?>
             <script src="../modules/schedule_module/schedule.script.js"></script>
         <?php } ?>
+        <?php if ($modules['Music Player']['active']) { ?>
+            <script src="../modules/mplayer_module/mplayer.script.js"></script>
+        <?php } ?>
+
+        <script>
+            // Fetch initial show/hide state and apply
+            function toggleBackground(show) {
+                const logoContainer = document.getElementById('logo-container');
+                if (show) {
+                    logoContainer.classList.remove('hidden');
+                } else {
+                    logoContainer.classList.add('hidden');
+                }
+            }
+
+            // Poll for changes to show_background
+            setInterval(() => {
+                fetch('../core/check_show_background.php')
+                    .then(response => response.json())
+                    .then(data => toggleBackground(data.showBackground === 1))
+                    .catch(error => console.error('Error fetching show background:', error));
+            }, 2000);
+        </script>
         
         <script>
             // Play greeting message when the user logs in using Unreal Speech API

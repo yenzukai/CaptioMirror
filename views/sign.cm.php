@@ -33,70 +33,71 @@
             width: 250,
             height: 250
         });
-
-        function createSessionToken() {
+    
+    function createSessionToken() {
         const array = new Uint8Array(16);
         window.crypto.getRandomValues(array);
         const token = Array.from(array, byte => ('0' + byte.toString(16)).slice(-2)).join('');
 
-            // Store the session token in the database
-            $.ajax({
-                type: "POST",
-                url: "../core/store_session.php",
-                data: { session_token: token },
-                success: function(response) {
-                    console.log('Store token response:', response);
-                    // Check if response is in JSON format
-                    try {
-                        response = JSON.parse(response);
-                    } catch (e) {
-                        console.error('Failed to parse response:', e);
-                        return;
-                    }
+        // Store the session token in the database
+        $.ajax({
+            type: "POST",
+            url: "../core/store_session.php",
+            data: { session_token: token },
+            success: function(response) {
+                console.log('Store token response:', response);
 
-                    if (response.success) {
-                        // Use makeCode to generate the QR code from the token
-                        qrcode.makeCode(token);
+                try {
+                    response = JSON.parse(response);
+                } catch (e) {
+                    console.error('Failed to parse response:', e);
+                    return;
+                }
 
-                        // Hide the sign-in button
-                        document.getElementById("sign-in-container").style.display = "none";
+                if (response.success) {
+                    // Generate the QR code
+                    qrcode.makeCode(token);
 
-                        // Show the QR code container
-                        document.getElementById("qrcode-container").style.display = "block";
-                        document.getElementById("qrcode").style.margin = "0 auto";
+                    // Hide the sign-in button
+                    document.getElementById("sign-in-container").style.display = "none";
 
-                        // Show the "SCAN ME NOW" message
-                        document.getElementById("scan-message").style.display = "block";
-                        pollForLogin(token);
-                    }
-                    },
-                    error: function(error) {
-                        console.error("Error storing session token:", error);
-                    }
-                });
+                    // Show the QR code container
+                    document.getElementById("qrcode-container").style.display = "block";
+                    document.getElementById("qrcode").style.margin = "0 auto";
+
+                    // Show the "SCAN ME NOW" message
+                    document.getElementById("scan-message").style.display = "block";
+
+                    pollForLogin(token);
+                }
+            },
+            error: function(error) {
+                console.error("Error storing session token:", error);
             }
+        });
+    }
 
-            function pollForLogin(token) {
-                setInterval(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "../core/check_login.php",
-                    data: { session_token: token },
-                    dataType: "json", // Expect JSON response
-                    success: function(response) {
-                        // No need to parse JSON here
-                        console.log('Login status response:', response);
+    function pollForLogin(token) {
+        setInterval(function() {
+        $.ajax({
+            type: "POST",
+            url: "../core/check_login.php",
+            data: { session_token: token },
+            dataType: "json", // Expect JSON response
+            success: function(response) {
+                // No need to parse JSON here
+                console.log('Login status response:', response);
 
-                        if (response.logged_in) {
-                            window.location.href = "index.php"; // Redirect to a logged-in dashboard
-                        }
-                    },
-                    error: function(error) {
-                        console.error("Error checking login status:", error);
-                    }
-                });
-                }, 3000); // Poll every 3 seconds
+                if (response.logged_in) {
+                    window.location.href = "index.php"; // Redirect to a logged-in dashboard
+                }
+            },
+            error: function(error) {
+                console.error("Error checking login status:", error);
             }
+        });
+        }, 3000); // Poll every 3 seconds
+    }
     </script>
 
     <script>

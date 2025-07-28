@@ -96,8 +96,8 @@ $username = $_SESSION['username'] ?? '';
                     <!-- Dynamic confirmation message -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-primary" id="confirm-yes-button">Yes</button>
+                    <button type="button" class="btn-modal-no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn-modal-yes" id="confirm-yes-button">Yes</button>
                 </div>
             </div>
         </div>
@@ -120,8 +120,8 @@ $username = $_SESSION['username'] ?? '';
                     <input type="password" id="confirmPasswordInput" class="form-control" placeholder="Enter password" required>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="confirmDeleteButton">Confirm</button>
+                    <button type="button" class="btn-modal-no" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-modal-yes" id="confirmDeleteButton">Confirm</button>
                 </div>
             </div>
         </div>
@@ -143,11 +143,28 @@ $username = $_SESSION['username'] ?? '';
             <h5>Device Settings</h5>
 
             <div class="setting-item">
-                <button class="btn btn-account" onclick="backgroundUpload()">Change Background</button>
+                <button class="btn btn-set" onclick="backgroundUpload()">Change Background</button>
             </div>
 
             <div class="setting-item">
-                <button class="btn btn-account" onclick="refreshDashboard()">Refresh Dashboard</button>
+                <button id="toggle-background" class="btn btn-set">Show/Hide Background</button>
+            </div>
+
+            <div class="setting-item">
+                <button class="btn btn-set" onclick="refreshDashboard()">Refresh Dashboard</button>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h5>Accessibility Settings</h5>
+            
+            <h6>Font Size</h6>
+            <div class="setting-item">
+                <select id="text-size-select" class="form-select">
+                    <option value="small">Small</option>
+                    <option value="normal">Normal</option>
+                    <option value="large">Large</option>
+                </select>
             </div>
         </div>
 
@@ -156,7 +173,7 @@ $username = $_SESSION['username'] ?? '';
             <h5>Account Settings</h5>
 
             <div class="setting-item">
-                <button class="btn btn-account" onclick="logout()">Log Out Dashboard</button>
+                <button class="btn btn-set" onclick="logout()">Log Out Dashboard</button>
             </div>
 
             <div class="setting-item">
@@ -273,6 +290,67 @@ $username = $_SESSION['username'] ?? '';
                     }
                 };
             }
+        </script>
+
+        <script>
+            function updateBackgroundVisibility(newState) {
+                fetch('func_core/update_background.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: '<?php echo $userId; ?>', show_background: newState })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const button = document.getElementById('toggle-background');
+                    } else {
+                        alert('Failed to update background visibility.');
+                    }
+                })
+                .catch(error => alert('Error updating background visibility: ' + error.message));
+            }
+
+            document.getElementById('toggle-background').addEventListener('click', function () {
+                fetch('../core/check_show_background.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const currentState = data.showBackground;
+                        updateBackgroundVisibility(currentState === 1 ? 0 : 1);
+                    });
+            });
+        </script>
+
+        <script>
+            document.getElementById('text-size-select').addEventListener('change', function () {
+                const newSize = this.value; // Get the selected value
+                fetch('func_core/update_text_size.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: '<?php echo $userId; ?>', text_size: newSize })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(`Text size updated to ${newSize}.`);
+                    } else {
+                        console.log('Failed to update text size.');
+                    }
+                })
+                .catch(error => console.error('Error updating text size: ' + error.message));
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Fetch and set the current text size in the dropdown
+                fetch('../core/check_text_size.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        const textSizeSelect = document.getElementById('text-size-select');
+                        if (data.textSize !== undefined) {
+                            textSizeSelect.value = data.textSize; // Set the dropdown to the current value
+                        }
+                    })
+                    .catch(error => console.error('Error fetching text size:', error));
+            });
         </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,22 +1,36 @@
 let reminderQueue = [];
 let Speaking = false;
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     if (userPreferences.scheduler_active) {
         checkReminder();
         setInterval(() => checkReminder(), 2000);
     }
 });
 
-// Function to play the reminder one at a time
+// Function to display popup notification
+function showPopupNotification(message) {
+    const popup = document.getElementById('popup-notification');
+    const popupMessage = document.getElementById('popup-message');
+
+    popupMessage.textContent = message;
+    popup.classList.remove('hidden');
+    popup.classList.add('visible');
+
+    setTimeout(() => {
+        popup.classList.remove('visible');
+        popup.classList.add('hidden');
+    }, 15000);
+}
+
+// Function to play the reminder and show the popup
 async function playReminder(reminder) {
     const eventTime = new Date(reminder.start_date).toLocaleString();
-    const message = `Reminder for ${reminder.username}:\n` +
+    const message = `Reminder for ${reminder.username}\n` +
                     `Event: ${reminder.event_name}\n` +
-                    `Description: ${reminder.description}\n` +
-                    `Scheduled for: ${eventTime}`;
+                    `Scheduled on: ${eventTime}`;
 
-    console.log(message);
+    showPopupNotification(message); // Show the popup notification
 
     // Use Unreal Speech to read out the reminder
     await unrealSpeak(message);
@@ -100,7 +114,7 @@ async function unrealSpeak(text) {
 
         // Create a new audio element
         const audio = new Audio(audioUrl);
-       
+
         // Await until the audio has finished playing
         await new Promise((resolve) => {
             audio.addEventListener('ended', resolve);

@@ -20,6 +20,6 @@ function getRandomQuote() {
 function updateRandomQuote(data) {
     // Update the DOM elements with the quote and author from the fetched data
     document.getElementById("quote").textContent = `"${data.quote}"`;
-    document.getElementById("cite").textContent = `-${data.author}`;
+    document.getElementById("cite").textContent = `- ${data.author}`;
 }
 

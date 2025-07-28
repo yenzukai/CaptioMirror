@@ -49,9 +49,9 @@ function updateForecast(forecastDays) {
         // Create forecast element
         const forecastElement = `
             <div class="col">
-                <p>${date}</p>
+                <li>${date}</li>
                 <img src="http:${icon}" alt="Forecast Icon" style="width: 32px; margin-top: -18px;">
-                <p>${maxTemp}°C / ${minTemp}°C</p>
+                <li>${maxTemp}°C / ${minTemp}°C</li>
             </div>
         `;
 

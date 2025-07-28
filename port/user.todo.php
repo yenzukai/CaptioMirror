@@ -64,7 +64,6 @@ $conn->close();
     <script>
         let lastMessage = '';
 
-        // Function to fetch and display tasks
         function loadTasks() {
             fetch('func_core/save_todo.php', { method: 'GET' })
                 .then(response => response.json())
@@ -73,9 +72,11 @@ $conn->close();
                     taskList.innerHTML = ''; // Clear the list
 
                     tasks.forEach(task => {
+                        if (task.removed) return; // Skip removed tasks
+
                         const listItem = document.createElement('li');
                         listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-                        
+
                         listItem.style.backgroundColor = '#151515';
                         listItem.style.color = '#ffffff';
                         listItem.style.border = '2px solid';
@@ -83,17 +84,19 @@ $conn->close();
 
                         listItem.innerHTML = `
                             <span>
-                                <input type="checkbox" onchange="markTaskDone(${task.id})" class="form-check-input me-2"> 
+                                <input type="checkbox" ${task.checked ? "checked" : ""} 
+                                    onchange="markTaskDone(${task.id}, this.checked)">
                                 ${task.task}
                             </span>
+                            <button onclick="removeTask(${task.id})" class="btn btn-danger btn-sm">X</button>
                         `;
                         taskList.appendChild(listItem);
                     });
                 });
         }
 
-        // Function to mark a task as done
-        function markTaskDone(taskId) {
+        // Remove a task
+        function removeTask(taskId) {
             fetch('func_core/save_todo.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -105,6 +108,18 @@ $conn->close();
                 loadTasks();
                 showModal(lastMessage); // Show message after updating tasks
             });
+        }
+
+        // Function to mark as done
+        function markTaskDone(taskId, isChecked) {
+            fetch('func_core/save_todo.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `task_id=${taskId}&checked=${isChecked ? 1 : 0}`
+            })
+                .then(response => response.json())
+                .then(() => loadTasks()) // Refresh tasks after toggling
+                .catch(error => console.error('Error marking task:', error));
         }
 
         // Function to add a new task

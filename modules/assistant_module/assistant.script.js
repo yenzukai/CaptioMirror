@@ -11,6 +11,8 @@ const assistantStyle = userPreferences.assistant.assistant_style;
 let idleTimer;
 let isSpeaking = false;
 let isListening = false;
+let isMusicPlaying = false; // Track if music is playing
+let isAssistantActive = false; // Track if the assistant is active
 let conversationHistory = [];
 
 let scheduleData = {
@@ -28,24 +30,46 @@ let remove_hop = 0;
 let change_roll = 0;
 
 // Set up speech recognition event handlers
-recognition.onstart = function() {
-    console.log('Speech recognition started.');
-    isListening = true;
-};
-
 recognition.onresult = async function(event) {
     const recognizedText = event.results[0][0].transcript.toLowerCase();
     console.log('Recognized Text:', recognizedText);
+
+    if (isMusicPlaying && !isAssistantActive) {
+        // Deactivate assistant when music is playing
+        if (recognizedText.includes(assistantName.toLowerCase())) {
+            console.log(`Assistant name "${assistantName}" detected. Activating assistant...`);
+            pauseMusic(); // Pause music when the assistant is activated
+            activateAssistant();
+        }
+        return; // Ignore other commands when the assistant is inactive
+    }
 
     if (!isSpeaking) {
         if (recognizedText.includes(assistantName.toLowerCase())) {
             console.log(`Assistant name "${assistantName}" detected. Activating assistant...`);
             activateAssistant();
-        } else if (isAssistantActive()) {
+        } else if (isAssistantActive) {
             document.getElementById("userInputText").textContent = recognizedText;
 
-            // If in the middle of setting a schedule, handle the steps accordingly
-            if (set_step > 0 && set_step <= 10) {
+            // Voice commands for music player
+            if (recognizedText.includes("play song")) {
+                deactivateAssistant();
+                playMusic();
+            } else if (recognizedText.includes("pause song")) {
+                deactivateAssistant();
+                pauseMusic();
+            } else if (recognizedText.includes("stop song")) {
+                deactivateAssistant();
+                stopMusic();
+            } else if (recognizedText.includes("next song")) {
+                deactivateAssistant();
+                nextMusic();
+            } else if (recognizedText.includes("previous song")) {
+                deactivateAssistant();
+                prevMusic();
+            } 
+            // Existing assistant commands
+            else if (set_step > 0 && set_step <= 10) {
                 handleSetSchedule(recognizedText);
             } else if (add_hop > 0 && add_hop <= 2) {
                 addTodoList(recognizedText);
@@ -74,6 +98,41 @@ recognition.onresult = async function(event) {
         }
     }
 };
+
+// Music Player Controls
+function playMusic() {
+    console.log("Voice Command: Playing Music");
+    const playButton = document.getElementById('play');
+    if (playButton) playButton.click();
+    isMusicPlaying = true;
+    deactivateAssistant(); // Deactivate assistant when music starts
+}
+
+function pauseMusic() {
+    console.log("Voice Command: Pausing Music");
+    const pauseButton = document.getElementById('pause');
+    if (pauseButton) pauseButton.click();
+    isMusicPlaying = false;
+}
+
+function stopMusic() {
+    console.log("Voice Command: Stopping Music");
+    const stopButton = document.getElementById('stop');
+    if (stopButton) stopButton.click();
+    isMusicPlaying = false;
+}
+
+function nextMusic() {
+    console.log("Voice Command: Next Song");
+    const nextButton = document.getElementById('next');
+    if (nextButton) nextButton.click();
+}
+
+function prevMusic() {
+    console.log("Voice Command: Previous Song");
+    const prevButton = document.getElementById('prev');
+    if (prevButton) prevButton.click();
+}
 
 function startListening() {
     if (!isListening && !isSpeaking) {  // Only start listening if assistant is not speaking
@@ -118,7 +177,45 @@ recognition.onend = function() {
     }
 };
 
-function handleSetSchedule(userResponse) {
+function handleSetSchedule(userResponse) { 
+    // A sub-function to convert month names to numbers
+    function convertMonthToNumber(monthName) {
+        const months = {
+            january: 1, february: 2, march: 3, april: 4, may: 5, june: 6,
+            july: 7, august: 8, september: 9, october: 10, november: 11, december: 12
+        };
+        return months[monthName.toLowerCase()] || null;
+    }
+
+    // A sub-function to convert spoken time to 24-hour format
+    function convertTimeTo24Hour(timeString) {
+        const timeRegex = /(\d{1,2}):?(\d{2})?\s?(am|pm)?/i;
+        const match = timeRegex.exec(timeString);
+        if (!match) return null;
+
+        let [_, hour, minute, period] = match;
+        hour = parseInt(hour, 10);
+        minute = minute || "00";
+
+        if (period && period.toLowerCase() === "pm" && hour !== 12) hour += 12;
+        if (period && period.toLowerCase() === "am" && hour === 12) hour = 0;
+
+        return `${hour.toString().padStart(2, "0")}:${minute.padStart(2, "0")}`;
+    }
+
+    // A sub-function to convert ordinal days to numbers
+    function convertDayToNumber(dayString) {
+        const days = {
+            first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7,
+            eighth: 8, ninth: 9, tenth: 10, eleventh: 11, twelfth: 12, thirteenth: 13,
+            fourteenth: 14, fifteenth: 15, sixteenth: 16, seventeenth: 17, eighteenth: 18,
+            nineteenth: 19, twentieth: 20, twentyfirst: 21, twentysecond: 22, twentythird: 23,
+            twentyfourth: 24, twentyfifth: 25, twentysixth: 26, twentyseventh: 27,
+            twentyeighth: 28, twentyninth: 29, thirtieth: 30, thirtyfirst: 31
+        };
+        return days[dayString.toLowerCase().replace(/\s+/g, '')] || parseInt(dayString, 10) || null; // Handle both text and numeric inputs
+    }
+
     switch (set_step) {
         case 0:
             displayAssistantResponse("What is the name of the event?");
@@ -135,21 +232,33 @@ function handleSetSchedule(userResponse) {
             set_step++;
             break;
         case 3:
-            scheduleData.start_month = userResponse;
-            displayAssistantResponse("What is the day of the start date?");
-            set_step++;
+            scheduleData.start_month = convertMonthToNumber(userResponse);
+            if (!scheduleData.start_month) {
+                displayAssistantResponse("I didn't understand the month. Please try again.");
+            } else {
+                displayAssistantResponse("What is the day of the start date?");
+                set_step++;
+            }
             break;
         case 4:
-            scheduleData.start_day = userResponse;
-            displayAssistantResponse("What time does the event start? Please provide the time (HH:MM format).");
-            set_step++;
+            scheduleData.start_day = convertDayToNumber(userResponse);
+            if (!scheduleData.start_day) {
+                displayAssistantResponse("I didn't understand the day. Please try again.");
+            } else {
+                displayAssistantResponse("What time does the event start? Please provide the time (e.g., 3:00 PM).");
+                set_step++;
+            }
             break;
         case 5:
-            scheduleData.start_time = userResponse;
-            // Construct full start date
-            scheduleData.start_date = `${scheduleData.start_year}-${scheduleData.start_month}-${scheduleData.start_day} ${scheduleData.start_time}`;
-            displayAssistantResponse("What is the year for the end date?");
-            set_step++;
+            scheduleData.start_time = convertTimeTo24Hour(userResponse);
+            if (!scheduleData.start_time) {
+                displayAssistantResponse("I didn't understand the time. Please try again.");
+            } else {
+                // Construct full start date
+                scheduleData.start_date = `${scheduleData.start_year}-${scheduleData.start_month}-${scheduleData.start_day} ${scheduleData.start_time}`;
+                displayAssistantResponse("What is the year for the end date?");
+                set_step++;
+            }
             break;
         case 6:
             scheduleData.end_year = userResponse;
@@ -157,21 +266,33 @@ function handleSetSchedule(userResponse) {
             set_step++;
             break;
         case 7:
-            scheduleData.end_month = userResponse;
-            displayAssistantResponse("What is the day of the end date?");
-            set_step++;
+            scheduleData.end_month = convertMonthToNumber(userResponse);
+            if (!scheduleData.end_month) {
+                displayAssistantResponse("I didn't understand the month. Please try again.");
+            } else {
+                displayAssistantResponse("What is the day of the end date?");
+                set_step++;
+            }
             break;
         case 8:
-            scheduleData.end_day = userResponse;
-            displayAssistantResponse("What time does the event end? Please provide the time (HH:MM format).");
-            set_step++;
+            scheduleData.end_day = convertDayToNumber(userResponse);
+            if (!scheduleData.end_day) {
+                displayAssistantResponse("I didn't understand the day. Please try again.");
+            } else {
+                displayAssistantResponse("What time does the event end? Please provide the time (e.g., 5:00 PM).");
+                set_step++;
+            }
             break;
         case 9:
-            scheduleData.end_time = userResponse;
-            // Construct full end date
-            scheduleData.end_date = `${scheduleData.end_year}-${scheduleData.end_month}-${scheduleData.end_day} ${scheduleData.end_time}`;
-            confirmSchedule();
-            set_step++;
+            scheduleData.end_time = convertTimeTo24Hour(userResponse);
+            if (!scheduleData.end_time) {
+                displayAssistantResponse("I didn't understand the time. Please try again.");
+            } else {
+                // Construct full end date
+                scheduleData.end_date = `${scheduleData.end_year}-${scheduleData.end_month}-${scheduleData.end_day} ${scheduleData.end_time}`;
+                confirmSchedule();
+                set_step++;
+            }
             break;
         case 10:
             finalizeSchedule(userResponse);
@@ -409,6 +530,7 @@ function activateAssistant() {
     assistantUI.classList.add("active");
     assistantUI.classList.remove("hidden");
     clearTimeout(idleTimer);
+    isAssistantActive = true;
 
     if (isListening) {
         recognition.stop();
@@ -422,11 +544,8 @@ function deactivateAssistant() {
     const assistantUI = document.getElementById("assistant-ui");
     assistantUI.classList.remove("active");
     assistantUI.classList.add("hidden");
+    isAssistantActive = false;
     recognition.stop();
-}
-
-function isAssistantActive() {
-    return document.getElementById("assistant-ui").classList.contains("active");
 }
 
 async function unrealSpeechSpeak(text) {

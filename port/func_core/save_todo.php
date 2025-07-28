@@ -76,12 +76,30 @@ function updateReloadFlag($conn, $userId) {
     }
 }
 
-// Handle the POST request (adding or removing tasks)
+// Handle POST requests
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Toggle task completion
+    if (isset($_POST['task_id']) && isset($_POST['checked'])) {
+        $taskId = $_POST['task_id'];
+        $checked = $_POST['checked'];
+        $sql = "UPDATE user_todo_lists SET checked = ? WHERE user_id = ? AND id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iii", $checked, $userId, $taskId);
+        $stmt->execute();
+        $stmt->close();
+
+        // Set the reload flag
+        updateReloadFlag($conn, $userId);
+
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+        exit();
+    }
+
+    // Mark task as removed
     if (isset($_POST['task_done_id'])) {
-        // Mark task as done (delete it from the database)
         $taskId = $_POST['task_done_id'];
-        $sql = "DELETE FROM user_todo_lists WHERE user_id = ? AND id = ?";
+        $sql = "UPDATE user_todo_lists SET removed = 1 WHERE user_id = ? AND id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $userId, $taskId);
         $stmt->execute();
@@ -96,24 +114,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Add a new task
-    $task = $_POST['task'];
-    $sql = "INSERT INTO user_todo_lists (user_id, task) VALUES (?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("is", $userId, $task);
-    $stmt->execute();
-    $stmt->close();
+    if (isset($_POST['task'])) {
+        $task = $_POST['task'];
+        $sql = "INSERT INTO user_todo_lists (user_id, task, checked, removed) VALUES (?, ?, 0, 0)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("is", $userId, $task);
+        $stmt->execute();
+        $stmt->close();
 
-    // Set the reload flag
-    updateReloadFlag($conn, $userId);
+        // Set the reload flag
+        updateReloadFlag($conn, $userId);
 
-    header('Content-Type: application/json');
-    echo json_encode(['success' => 'The task has been added successfully!']);
-    exit();
+        header('Content-Type: application/json');
+        echo json_encode(['success' => 'The task has been added successfully!']);
+        exit();
+    }
 }
 
-// Handle the GET request (fetching tasks)
+// Handle GET requests
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $sql = "SELECT * FROM user_todo_lists WHERE user_id = ?";
+    $sql = "SELECT * FROM user_todo_lists WHERE user_id = ? AND removed = 0";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
@@ -125,9 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 
     $stmt->close();
-
-    // Return tasks as JSON
-    header('Content-Type: application/json');
     echo json_encode($tasks);
     exit();
 }

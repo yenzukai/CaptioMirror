@@ -55,9 +55,26 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 500px;
-    max-height: 500px;
+    max-width: 450px;
+    max-height: 450px;
     text-align: center;
+    z-index: 0;
+}
+
+#music-container {
+    position: absolute;
+    top: 500px;
+    left: 1300px;
+    width: 250px;
+    z-index: 2;
+}
+
+.row, .col-md-6, .col-12, #weather-container, #assistant-container {
+    z-index: 1; 
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* Landscape Mode */
@@ -115,6 +132,12 @@ body {
         width: 100%;
         justify-content: center;
     }
+
+    #music-container {
+        top: 72%;
+        left: 84%;
+        width: 250px;
+    }
 }
 
 /* Portrait Mode */
@@ -137,5 +160,11 @@ body {
     .col-12 img {
         max-height: 500px;
         margin-top: -500px;
+    }
+
+    #music-container {
+        top: 62%;
+        left: 74%;
+        width: 220px;
     }
 }

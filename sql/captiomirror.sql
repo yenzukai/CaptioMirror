@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 07, 2024 at 04:51 PM
+-- Generation Time: Dec 09, 2024 at 04:35 AM
 -- Server version: 10.10.2-MariaDB
 -- PHP Version: 8.1.13
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `ai_assistant_preferences` (
   `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `ai_assistant_preferences`
@@ -49,7 +49,8 @@ INSERT INTO `ai_assistant_preferences` (`id`, `user_id`, `assistant_name`, `voic
 (19, 14, 'Alex', 'Google US English', 'Friendly Assistant', '2024-09-12 16:31:02'),
 (20, 3, 'Jason', 'Will', 'A math tutor who helps students of all levels understand and solve mathematical problems', '2024-11-04 01:58:41'),
 (21, 15, 'Trisha', 'Google UK English Female', 'Friendly Assistant', '2024-09-15 03:05:08'),
-(27, 24, 'Alexa', 'Will', 'A friendly assistant who loves to chat and assist with the user', '2024-11-04 06:17:37');
+(27, 24, 'Alexa', 'Will', 'A friendly assistant who loves to chat and assist with the user', '2024-11-04 06:17:37'),
+(28, 25, 'Alex', 'henry', 'Friendly Assistant', '2024-11-12 08:52:26');
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,8 @@ INSERT INTO `modules` (`id`, `name`, `active`) VALUES
 (4, 'Quote of the Day', 1),
 (5, 'Assistant', 1),
 (6, 'Todo Lists', 1),
-(7, 'Scheduler', 1);
+(7, 'Scheduler', 1),
+(8, 'Music Player', 1);
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `is_cleared` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `notifications`
@@ -105,7 +107,11 @@ INSERT INTO `notifications` (`id`, `user_id`, `message`, `created_at`, `is_read`
 (3, 3, 'A reminder for you, yenzukai: halloween party is scheduled at 2024-10-21 17:11:00', '2024-10-21 09:10:19', 1, 0),
 (5, 3, 'A reminder for you, yenzukai: acquaintance party is scheduled at 2024-10-21 17:33:00', '2024-10-21 09:32:19', 1, 1),
 (6, 3, 'A reminder for you, yenzukai: Drinking with the Boys! is scheduled at 2024-10-22 11:05:00', '2024-10-22 03:04:32', 1, 0),
-(7, 24, 'A reminder for you, Rogel: Go to school is scheduled at 2024-11-04 14:25:00', '2024-11-04 06:24:18', 1, 0);
+(7, 24, 'A reminder for you, Rogel: Go to school is scheduled at 2024-11-04 14:25:00', '2024-11-04 06:24:18', 1, 0),
+(8, 3, 'A reminder for you, yenzukai: OJT is scheduled at 2024-11-19 14:27:00', '2024-11-19 06:12:18', 1, 0),
+(9, 3, 'A reminder for you, yenzukai: halloween party is scheduled at 2024-12-03 22:54:00', '2024-12-03 14:53:16', 1, 0),
+(10, 3, 'A reminder for you, yenzukai: Drinking with the Boys! is scheduled at 2024-12-03 22:58:00', '2024-12-03 14:57:46', 1, 0),
+(11, 3, 'A reminder for you, yenzukai: Drinking with the Boys! is scheduled at 2024-12-03 23:09:00', '2024-12-03 15:08:15', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -122,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `reload_flags` (
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `reload_flags`
@@ -131,12 +137,13 @@ CREATE TABLE IF NOT EXISTS `reload_flags` (
 INSERT INTO `reload_flags` (`id`, `user_id`, `reload`, `created_at`, `updated_at`) VALUES
 (57, 18, 0, '2024-09-16 01:29:28', '2024-10-24 07:09:10'),
 (51, 7, 0, '2024-09-04 06:20:49', '2024-09-04 06:24:33'),
-(49, 3, 0, '2024-09-03 13:56:41', '2024-11-07 04:18:33'),
+(49, 3, 0, '2024-09-03 13:56:41', '2024-12-09 04:33:08'),
 (52, 13, 1, '2024-09-12 16:01:19', '2024-09-12 16:01:19'),
 (53, 14, 1, '2024-09-12 16:18:01', '2024-09-12 16:18:01'),
 (59, 22, 1, '2024-09-25 06:00:47', '2024-09-25 07:15:18'),
 (58, 19, 0, '2024-09-16 01:44:02', '2024-09-16 01:48:37'),
-(60, 24, 0, '2024-11-04 06:14:19', '2024-11-04 06:29:45');
+(60, 24, 0, '2024-11-04 06:14:19', '2024-11-04 06:29:45'),
+(61, 25, 0, '2024-11-12 08:56:48', '2024-11-12 12:36:16');
 
 -- --------------------------------------------------------
 
@@ -157,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `schedules` (
   `notified` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `schedules`
@@ -166,12 +173,10 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 INSERT INTO `schedules` (`id`, `user_id`, `event_name`, `description`, `alarm_before`, `start_date`, `end_date`, `created_at`, `notified`) VALUES
 (5, 22, 'Happy Halloween', 'What a scary event this would going to be!', 30, '2024-11-01 00:00:00', '2024-09-03 23:59:00', '2024-09-25 06:53:04', 0),
 (4, 22, 'Birthday Party', 'Her birthday party would be extravagant!', 60, '2024-09-26 14:12:00', '2024-09-26 23:59:00', '2024-09-25 06:24:54', 1),
-(13, 3, 'Kamusta bossing', 'Kamusta buhay-buhay?', 0, '2024-09-26 13:15:00', '2024-10-26 12:50:00', '2024-09-26 05:07:06', 0),
 (17, 3, 'Graduation Pictorial', 'I will be the most attractive person during our graduation pictorial.', 1, '2024-10-21 17:25:00', '2024-10-22 22:00:00', '2024-10-02 02:46:56', 1),
-(16, 3, 'Drinking with the Boys!', '', 1, '2024-10-22 11:05:00', '2024-10-22 00:00:00', '2024-09-29 14:58:04', 1),
-(32, 3, 'football championship', '', NULL, '2024-12-13 12:29:00', '2024-12-14 01:30:00', '2024-11-07 04:10:35', 0),
+(16, 3, 'Drinking with the Boys!', '', 1, '2024-12-03 23:09:00', '2024-12-03 23:59:00', '2024-09-29 14:58:04', 1),
 (24, 3, 'Bestfriend\'s Wedding Party', 'It is going to be one of the most unforgettable moment for me as his bestfriend.', 1, '2024-10-07 10:23:00', '2024-10-07 23:50:00', '2024-10-07 02:18:54', 0),
-(27, 3, 'halloween party', 'trick or treat', 1, '2024-10-21 17:11:00', '2024-10-22 12:00:00', '2024-10-15 13:00:31', 1),
+(27, 3, 'halloween party', 'trick or treat', 1, '2024-12-03 22:54:00', '2024-12-03 23:59:00', '2024-10-15 13:00:31', 1),
 (28, 3, 'acquaintance party', '', 1, '2024-10-21 17:33:00', '2024-10-22 00:00:00', '2024-10-17 11:58:25', 1);
 
 -- --------------------------------------------------------
@@ -190,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `schedules_history` (
   `alarm_before` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `schedules_history`
@@ -232,7 +237,11 @@ INSERT INTO `schedules_history` (`id`, `user_id`, `event_name`, `description`, `
 (33, 3, 'Graduation Pictorial', 'I will be the most attractive person during our graduation pictorial.', '2024-10-21 17:25:00', 1, '2024-10-21 17:24:44'),
 (34, 3, 'acquaintance party', '', '2024-10-21 17:33:00', 1, '2024-10-21 17:32:19'),
 (35, 3, 'Drinking with the Boys!', '', '2024-10-22 11:05:00', 1, '2024-10-22 11:04:32'),
-(36, 24, 'Go to school', 'Back to school', '2024-11-04 14:25:00', 1, '2024-11-04 14:24:18');
+(36, 24, 'Go to school', 'Back to school', '2024-11-04 14:25:00', 1, '2024-11-04 14:24:18'),
+(37, 3, 'OJT', '', '2024-11-19 14:27:00', 15, '2024-11-19 14:12:18'),
+(38, 3, 'halloween party', 'trick or treat', '2024-12-03 22:54:00', 1, '2024-12-03 22:53:16'),
+(39, 3, 'Drinking with the Boys!', '', '2024-12-03 22:58:00', 1, '2024-12-03 22:57:46'),
+(40, 3, 'Drinking with the Boys!', '', '2024-12-03 23:09:00', 1, '2024-12-03 23:08:15');
 
 -- --------------------------------------------------------
 
@@ -251,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `session_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=221 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=251 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `session_tokens`
@@ -266,7 +275,36 @@ INSERT INTO `session_tokens` (`id`, `token`, `user_id`, `logged_in`, `created_at
 (217, '596b9be2e145c2ab84b5c657ad322909', 3, 0, '2024-11-04 06:00:06', NULL),
 (218, 'c4b881b8a7fb18b2e2205bdcd2e7e447', 24, 1, '2024-11-04 06:13:36', NULL),
 (219, 'fc84fd77fac968e2b6cbcde970a3d940', 3, 1, '2024-11-07 02:26:34', NULL),
-(220, '1789d72b8eac54172d73eea620f2dfea', 3, 0, '2024-11-07 02:42:18', NULL);
+(220, '1789d72b8eac54172d73eea620f2dfea', 3, 0, '2024-11-07 02:42:18', NULL),
+(221, 'e8cfd17f949fa6fda3eb45012441b5eb', 3, 1, '2024-11-08 15:10:05', NULL),
+(222, '043e598e9265c5df15db3613998dffbe', 3, 1, '2024-11-10 11:21:01', NULL),
+(223, '3ecf7e653d053bd17d9f9455bf914b12', 3, 1, '2024-11-10 11:22:10', NULL),
+(226, '5d3c105d9ebaa4ad5fa521edbd6f91f6', 25, 0, '2024-11-12 08:56:05', NULL),
+(225, 'bb6b6229f39f328f1e2ef26d80390b12', 3, 1, '2024-11-10 11:27:58', NULL),
+(227, '26e85382ac11f235a3cddf74e0ff809d', NULL, 0, '2024-11-15 10:54:04', NULL),
+(228, '2489aa1f6b8121d83042145c09a346fb', NULL, 0, '2024-11-15 10:58:48', NULL),
+(229, '2ae00c7f8365a014828251d98850d17c', NULL, 0, '2024-11-15 11:00:32', NULL),
+(230, 'e48dd73e498ef3adfd6cd210c67a311d', 3, 1, '2024-11-15 11:03:54', NULL),
+(231, '6a12a01aed152878702165d058f6b214', 3, 1, '2024-11-15 11:07:04', NULL),
+(232, '92f30c3bceada081f7f1b4a7511b6ac1', 3, 1, '2024-11-19 15:12:13', NULL),
+(233, '9d8048bade8c8787bb9f95e6b545d6ed', 3, 0, '2024-11-20 15:33:29', NULL),
+(234, '9a1e57361617478326353e5e31078668', 3, 0, '2024-11-20 16:41:06', NULL),
+(235, 'ebfd842fe5a07c980844ae4f2dd48995', 3, 0, '2024-11-21 04:40:47', NULL),
+(236, '158a5d7480410e7ec244387732e46dcc', 3, 1, '2024-11-21 13:53:02', NULL),
+(237, '62577d1f98eb526dbf2702a7c1af46f2', 3, 0, '2024-11-21 13:53:45', NULL),
+(238, '4e2d99975d5a28174c895ea17d375e58', NULL, 0, '2024-11-24 13:41:33', NULL),
+(239, '648523d3b0b4046dc9a62145d85cf37a', 3, 1, '2024-11-24 13:43:21', NULL),
+(240, '05d8531b305d1d6db51168beb6133517', 3, 1, '2024-11-24 13:52:02', NULL),
+(241, '7b5fc7386a4317f0302d1780914251a6', 3, 1, '2024-11-25 07:17:38', NULL),
+(242, '986db4f328c60b7f1af3b6f258e4ddc6', NULL, 0, '2024-11-25 07:18:51', NULL),
+(243, 'd2594b11135165824b7c5aa78afcdb24', 3, 1, '2024-11-25 07:19:32', NULL),
+(244, '907740ce09aa69e485895aab144fb8a6', 3, 1, '2024-11-25 08:00:44', NULL),
+(245, '1ee905a29291dbc16f16e5d71d0906ce', 3, 1, '2024-11-25 08:01:29', NULL),
+(246, '6ccf7c6a211e9577a5adaf9c2fecfdaa', 3, 1, '2024-12-03 14:44:48', NULL),
+(247, '6e5eb12af4a20f556477af4891701178', 3, 0, '2024-12-03 14:45:31', NULL),
+(248, '05ba5f65e9c055449f71f53cb4f1d5a9', 3, 0, '2024-12-04 07:32:15', NULL),
+(249, 'b9cf89bf6f61799d01c93deccf170345', 3, 1, '2024-12-09 04:19:36', NULL),
+(250, '72e7b80c7c3e170a6e26a91dc025782e', 3, 0, '2024-12-09 04:20:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -286,23 +324,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `remember_token` varchar(64) DEFAULT NULL,
   `email_verified_at` varchar(25) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `profile_picture` varchar(255) DEFAULT NULL,
+  `profile_picture` varchar(255) DEFAULT '../assets/svg/account-avatar-default.svg',
   `background_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `phone_number`, `date_of_birth`, `password`, `verification_code`, `remember_token`, `email_verified_at`, `created_at`, `profile_picture`, `background_path`) VALUES
-(3, 'yenzukai', 'rinkashixd@gmail.com', '+639664809996', '2002-12-29', '$2y$10$j.lMzPOe9C4n08U2dBoGxeb/CYB/zRyu1fIXZH3lJt5CicbbOOjTy', '313868', 'debfb90e04a0ceea06b4282dbdafda5105b4d912ab141102683aed06d86b0ed9', '2024-08-19 09:32:29', '2024-08-18 12:44:09', '../uploads/profile_pictures/yenzukai_66f2602dad9f7.png', '../uploads/background_logo/yenzukai_6726413e4643a.png'),
+(3, 'yenzukai', 'rinkashixd@gmail.com', '+639664809996', '2002-12-29', '$2y$10$j.lMzPOe9C4n08U2dBoGxeb/CYB/zRyu1fIXZH3lJt5CicbbOOjTy', '313868', NULL, '2024-08-19 09:32:29', '2024-08-18 12:44:09', '../uploads/profile_pictures/yenzukai_66f2602dad9f7.png', '../uploads/background_logo/yenzukai_6726413e4643a.png'),
 (19, 'maaars_', 'gabaymadolores@gmail.com', '09165554966', '2003-08-21', '$2y$10$lsYJHcJiUQUApoCyrz3MP.pN805K38r.QQm2ciB3d5xM45vYHqMGW', '179801', NULL, '2024-09-16 09:42:26', '2024-09-16 01:34:25', NULL, NULL),
-(21, 'vreed45', 'clumsydude34@gmail.com', '09123456789', NULL, '$2y$10$42MlbhxFwmglokY5hieZ/uP9SjCGTuDH5phL1r9xkfHIjSMzwS4E.', '246460', NULL, NULL, '2024-09-25 04:33:09', NULL, NULL),
-(22, 'mjrojas_parsu', 'mjrojas.pbox@parsu.edu.ph', '09935320145', '2000-10-31', '$2y$10$c9jqN7.cz2xWQxuK.owOz.lBaO01H5j9pRE/MSFU5onv8ehdgn2/y', '976764', NULL, '2024-09-25 13:33:34', '2024-09-25 05:18:38', '../uploads/profile_pictures/mjrojas_parsu_66f3a359f293c.jpg', NULL),
-(24, 'Rogel', 'rogelnavarro74@gmail.com', '09984518951', NULL, '$2y$10$lYGsgKJHWSu6yBVkqnCiHuOZDtYi2VfbYFYaz7glEh/Es0N84UZN6', '169239', NULL, '2024-11-04 14:13:29', '2024-11-04 06:12:36', NULL, NULL);
+(22, 'mjrojas_parsu', 'mjrojas.pbox@parsu.edu.ph', '09935320145', '2000-10-31', '$2y$10$c9jqN7.cz2xWQxuK.owOz.lBaO01H5j9pRE/MSFU5onv8ehdgn2/y', NULL, NULL, '2024-09-25 13:33:34', '2024-09-25 05:18:38', '../uploads/profile_pictures/mjrojas_parsu_66f3a359f293c.jpg', NULL),
+(24, 'Rogel', 'rogelnavarro74@gmail.com', '09984518951', NULL, '$2y$10$lYGsgKJHWSu6yBVkqnCiHuOZDtYi2VfbYFYaz7glEh/Es0N84UZN6', '169239', NULL, '2024-11-04 14:13:29', '2024-11-04 06:12:36', NULL, NULL),
+(26, 'emjay', 'emjayprojas@gmail.com', '09223344667', NULL, '$2y$10$daSqrcwGKM52kzuEEfMFkOecgdjbEXgk8ApXfCwKTUU/dmHF5sjjy', '281728', NULL, '2024-11-24 21:49:51', '2024-11-24 13:48:22', '../assets/svg/account-avatar-default.svg', NULL);
 
 -- --------------------------------------------------------
 
@@ -349,11 +387,11 @@ CREATE TABLE IF NOT EXISTS `user_modules` (
 --
 
 INSERT INTO `user_modules` (`user_id`, `module_id`, `active`, `last_updated`) VALUES
-(3, 1, 1, '2024-11-07 03:15:24'),
-(3, 4, 0, '2024-11-07 03:15:24'),
-(3, 3, 0, '2024-11-07 03:15:24'),
-(3, 2, 0, '2024-11-07 03:15:24'),
-(3, 5, 1, '2024-11-07 03:15:24'),
+(3, 1, 1, '2024-11-21 15:03:23'),
+(3, 4, 1, '2024-11-21 15:03:23'),
+(3, 3, 1, '2024-11-21 15:03:23'),
+(3, 2, 1, '2024-11-21 15:03:23'),
+(3, 5, 1, '2024-11-21 15:03:23'),
 (24, 5, 1, '2024-11-04 06:14:19'),
 (24, 3, 1, '2024-11-04 06:14:19'),
 (24, 7, 1, '2024-11-04 06:14:19'),
@@ -364,7 +402,7 @@ INSERT INTO `user_modules` (`user_id`, `module_id`, `active`, `last_updated`) VA
 (22, 3, 1, '2024-09-25 07:00:27'),
 (22, 4, 1, '2024-09-25 07:00:27'),
 (22, 1, 1, '2024-09-25 07:00:27'),
-(3, 6, 1, '2024-11-07 03:15:24'),
+(3, 6, 1, '2024-11-21 15:03:23'),
 (22, 5, 1, '2024-09-25 07:00:27'),
 (24, 6, 1, '2024-11-04 06:14:19'),
 (19, 5, 1, '2024-09-16 01:44:44'),
@@ -373,8 +411,16 @@ INSERT INTO `user_modules` (`user_id`, `module_id`, `active`, `last_updated`) VA
 (19, 3, 1, '2024-09-16 01:44:44'),
 (19, 6, 1, '2024-09-16 01:44:44'),
 (19, 2, 1, '2024-09-16 01:44:44'),
-(3, 7, 1, '2024-11-07 03:15:24'),
-(24, 4, 0, '2024-11-04 06:14:19');
+(3, 7, 1, '2024-11-21 15:03:23'),
+(24, 4, 0, '2024-11-04 06:14:19'),
+(25, 5, 1, '2024-11-12 08:56:48'),
+(25, 1, 1, '2024-11-12 08:56:48'),
+(25, 4, 1, '2024-11-12 08:56:48'),
+(25, 7, 1, '2024-11-12 08:56:48'),
+(25, 3, 1, '2024-11-12 08:56:48'),
+(25, 6, 1, '2024-11-12 08:56:48'),
+(25, 2, 1, '2024-11-12 08:56:48'),
+(3, 8, 1, '2024-11-21 15:03:23');
 
 -- --------------------------------------------------------
 
@@ -388,22 +434,25 @@ CREATE TABLE IF NOT EXISTS `user_preferences` (
   `user_id` int(11) NOT NULL,
   `weather_location` varchar(255) NOT NULL,
   `date_time_format` varchar(50) NOT NULL,
+  `show_background` tinyint(1) NOT NULL DEFAULT 1,
+  `text_size` varchar(10) DEFAULT 'normal',
   `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user_preferences`
 --
 
-INSERT INTO `user_preferences` (`id`, `user_id`, `weather_location`, `date_time_format`, `last_updated`) VALUES
-(30, 24, 'New York', 'en-US', '2024-11-04 06:14:29'),
-(28, 22, 'Lagonoy, Camarines Sur', 'en-US', '2024-09-25 07:10:00'),
-(27, 19, 'Goa, Camarines Sur', 'en-US', '2024-09-16 01:46:58'),
-(22, 14, 'New York', 'en-US', '2024-09-12 16:31:02'),
-(23, 3, 'Lagonoy, Camarines Sur', 'en-US', '2024-10-24 06:07:50'),
-(24, 15, 'Lagonoy, Camarines Sur', 'en-US', '2024-09-15 03:05:08');
+INSERT INTO `user_preferences` (`id`, `user_id`, `weather_location`, `date_time_format`, `show_background`, `text_size`, `last_updated`) VALUES
+(30, 24, 'New York', 'en-US', 1, 'normal', '2024-11-04 06:14:29'),
+(31, 25, 'New York', 'en-US', 1, 'normal', '2024-11-12 08:52:26'),
+(28, 22, 'Lagonoy, Camarines Sur', 'en-US', 1, 'normal', '2024-09-25 07:10:00'),
+(27, 19, 'Goa, Camarines Sur', 'en-US', 1, 'normal', '2024-09-16 01:46:58'),
+(22, 14, 'New York', 'en-US', 1, 'normal', '2024-09-12 16:31:02'),
+(23, 3, 'Lagonoy, Camarines Sur', 'en-US', 1, 'normal', '2024-12-09 04:32:37'),
+(24, 15, 'Lagonoy, Camarines Sur', 'en-US', 1, 'normal', '2024-09-15 03:05:08');
 
 -- --------------------------------------------------------
 
@@ -419,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `user_stock_symbols` (
   `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=518 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=521 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user_stock_symbols`
@@ -443,7 +492,10 @@ INSERT INTO `user_stock_symbols` (`id`, `user_id`, `stock_symbol`, `last_updated
 (416, 19, 'AAPL', '2024-09-16 01:46:58'),
 (517, 24, 'AAPL', '2024-11-04 06:17:37'),
 (516, 24, 'GOOGL', '2024-11-04 06:17:37'),
-(515, 24, 'TSLA', '2024-11-04 06:17:37');
+(515, 24, 'TSLA', '2024-11-04 06:17:37'),
+(518, 25, 'AAPL', '2024-11-12 08:52:26'),
+(519, 25, 'GOOGL', '2024-11-12 08:52:26'),
+(520, 25, 'TSLA', '2024-11-12 08:52:26');
 
 -- --------------------------------------------------------
 
@@ -457,22 +509,19 @@ CREATE TABLE IF NOT EXISTS `user_todo_lists` (
   `user_id` int(11) DEFAULT NULL,
   `task` varchar(255) DEFAULT NULL,
   `checked` tinyint(1) DEFAULT 0,
+  `removed` tinyint(1) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user_todo_lists`
 --
 
-INSERT INTO `user_todo_lists` (`id`, `user_id`, `task`, `checked`, `created_at`) VALUES
-(17, 19, 'Prep for lunch', 0, '2024-09-16 01:45:49'),
-(16, 19, 'Read a book!', 0, '2024-09-16 01:45:33'),
-(31, 3, 'wash my cat', 0, '2024-11-04 06:04:54'),
-(18, 19, 'Take a bath', 0, '2024-09-16 01:45:56'),
-(29, 3, 'wash dishes', 0, '2024-11-02 15:20:29'),
-(32, 24, 'Ma shat', 0, '2024-11-04 06:21:58');
+INSERT INTO `user_todo_lists` (`id`, `user_id`, `task`, `checked`, `removed`, `created_at`) VALUES
+(42, 3, 'Brush your teeth everyday', 1, 1, '2024-11-21 04:41:58'),
+(41, 3, 'Watch Hello, Love, Again', 1, 0, '2024-11-20 16:29:37');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

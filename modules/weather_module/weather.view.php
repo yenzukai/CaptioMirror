@@ -7,11 +7,11 @@
             <img id="weather-icon" alt="Weather Icon" class="ms-2" style="width: 64px;">
         </div>
         <h1 id="temperature" class="display-1">--°C</h1>
-        <p id="location-info" class="text-uppercase mb-0">--</p>
+        <li id="location-info" class="text-uppercase mb-0">--</li>
         <div id="additional-info" class="mt-4">
-            <p id="wind-speed" class="mb-1">Wind Speed: -- km/h</p>
-            <p id="humidity" class="mb-1">Humidity: --%</p>
-            <p id="heat-index" class="mb-1">Heat Index: --°C</p>
+            <li id="wind-speed" class="mb-1">Wind Speed: -- km/h</li>
+            <li id="humidity" class="mb-1">Humidity: --%</li>
+            <li id="heat-index" class="mb-1">Heat Index: --°C</li>
         </div>
         <!-- Forecast Section -->
         <div id="forecast-container" class="mt-4">

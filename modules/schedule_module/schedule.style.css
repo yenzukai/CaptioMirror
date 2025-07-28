@@ -1,0 +1,24 @@
+.popup-notification {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease, top 0.3s ease;
+}
+
+.popup-notification.visible {
+    opacity: 1;
+    top: 20px;
+}
+
+.popup-notification.hidden {
+    opacity: 0;
+    top: 10px;
+}

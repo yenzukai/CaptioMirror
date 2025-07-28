@@ -203,7 +203,7 @@ p {
 }
 
 .email {
-    color: #FFC107;
+    color: #fae260;
 }
 
 .verification-code {
@@ -220,11 +220,11 @@ p {
 
 .verification-code:focus {
     outline: none;
-    border-bottom-color: #FFC107;
+    border-bottom-color: #fae260;
 }
 
 #timer {
-    color: #FFC107;
+    color: #fae260;
 }
 
 /* Homepage */
@@ -572,6 +572,28 @@ form .btn-secondary:hover {
     color: #000000;
 }
 
+.btn-modal-no, .btn-modal-yes {
+    background-color: #151515;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 0;
+    padding: 10px;
+}
+
+.btn-modal-no:hover, .btn-modal-yes:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 2px;
+    opacity: 1;
+    filter: invert(40%) sepia(100%) saturate(350%) hue-rotate(400deg) brightness(600%) contrast(100%);
+}
+
 .btn-sm {
     font-size: 11px;
     margin-bottom: 2.5px;
@@ -647,15 +669,18 @@ form .btn-secondary:hover {
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .settings-section {
     margin-bottom: 30px;
 }
+
 .setting-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
 }
+
 .section-header {
     font-size: 1.5rem;
     font-weight: bold;
@@ -664,11 +689,29 @@ form .btn-secondary:hover {
     border-bottom: 2px solid #dee2e6;
     padding-bottom: 5px;
 }
-.btn-account {
+
+.btn-set {
     display: block;
     width: 100%;
     margin-bottom: 15px;
     background-color: #000000;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 0;
+    padding: 10px;
+}
+
+.btn-set:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.btn-account {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #f44336;
     border: 2px solid #ffffff;
     color: #ffffff;
     font-weight: bold;

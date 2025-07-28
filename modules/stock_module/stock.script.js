@@ -29,9 +29,9 @@ function updateStockPrices(stockData) {
         const stockElement = `
             <div>
                 <h4>${data.symbol}</h4>
-                <p>Price: ${data.close}</p>
-                <p>High: ${data.high}</p>
-                <p>Low: ${data.low}</p>
+                <li>Price: ${data.close}</li>
+                <li>High: ${data.high}</li>
+                <li>Low: ${data.low}</li>
             </div>
         `;
 

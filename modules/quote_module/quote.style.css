@@ -2,8 +2,12 @@
 #quote {
     display: block;
     font-style: italic;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     line-height: 20px;
+}
+
+li {
+    list-style: none;
 }
 
 #cite {

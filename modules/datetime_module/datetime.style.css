@@ -1,5 +1,9 @@
-#date, #time {
-    font-size: 1.5rem;
-    color: white;
+#date {
+    font-size: 1.20rem;
+}
+
+#time {
+    font-size: 2.6rem;
+    margin-top: -25px;
 }
 

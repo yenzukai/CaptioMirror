@@ -22,9 +22,15 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-.back-arrow, .burger-menu {
+.back-arrow {
     width: 24px;
     height: 24px;
+    cursor: pointer;
+}
+
+.burger-menu {
+    width: 34px;
+    height: 34px;
     cursor: pointer;
 }
 
@@ -39,10 +45,24 @@ h1, h2 {
     z-index: 1000;
     transition: right 0.3s ease;
     padding: 20px;
+    overflow-y: auto;
 }
 
 .sidebar-menu.active {
     right: 0;
+}
+
+.sidebar-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
 }
 
 .nav-link {
@@ -58,23 +78,36 @@ h1, h2 {
     max-width: 100%;
 }
 
+.container0 {
+    max-width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+#getting-started h2, #modules h2, #commands h2, #about h2{
+    font-size: 1.50rem;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
 .section-content h3 {
     font-size: 1.25rem;
-    color: #ccc;
-    margin-top: 1rem;
+    color: #f0f0f0;
+    margin-top: 20px;
 }
 
 .section-content h4 {
     font-size: 1.1rem;
-    color: #888;
-    margin-top: 0.5rem;
-    margin-left: 1rem;
+    color: #c4c4c4;
+    margin-top: 20px;
+    margin-left: 10px;
 }
 
 .section-content p, .section-content ul, .section-content pre {
     margin: 0.5rem 0;
     font-size: 0.9rem;
     color: #bbb;
+    line-height: 25px;
 }
 
 ul {
