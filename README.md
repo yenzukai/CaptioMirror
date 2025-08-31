@@ -107,5 +107,26 @@ Thanks to user feedback, iterative prototyping, and comprehensive evaluations al
 
 ---
 
+## ⚠ Important Notice on API Keys
+
+This repository contains commented-out placeholders for API keys required by some modules.
+All API keys used in my personal development have been revoked for security reasons.
+
+If you intend to run or extend this project, you must provide your own API keys in the designated files:
+
+- UnrealSpeech API → index.php, assistant.script.js
+- Mistral API → assistant.script.js
+- WeatherAPI → weather.script.js
+- Polygon API (Stock Data) → stock.script.js
+
+Note: Don't you worry because the scripts contain comments in the respective files clearly indicate where to place your keys.
+
+---
+Author
 Feel free to modify any parts or let me know if you’d like specific logos, screenshots, or additional details included!
-::contentReference[oaicite:0]{index=0}
+
+Developed by Martin James Pasabillo Rojas
+
+Contact: emjayprojas@gmail.com
+Linkedin: [Martin James Rojas](www.linkedin.com/in/yenzukai)
+GitHub: [@yenzukai](https://www.github.com/yenzukai)
