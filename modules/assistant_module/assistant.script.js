@@ -549,8 +549,8 @@ function deactivateAssistant() {
 }
 
 async function unrealSpeechSpeak(text) {
-    const API_BASE_URL = "https://api.v7.unrealspeech.com/stream";
-    const API_KEY = "Bearer 7Yfzp1sQCgAYVzit3FezIFz5e2Ubn5clyEW3j1wp6I1IHb5iRd11Gr"; 
+    const API_BASE_URL = "https://api.v7.unrealspeech.com/stream"; // You can change the TTS model based on your preference
+    const API_KEY = "Bearer ";  // You need to manually place your own TTS API key for the feature to work           
     const VOICE_ID = voiceAssistant || 'Will';
 
     try {
@@ -624,11 +624,11 @@ async function getAIResponse(userInput, assistantName, assistantStyle, conversat
     try {
         conversationHistory.push({ role: "user", content: userInput });
 
-        const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
+        const response = await fetch('https://api.mistral.ai/v1/chat/completions', { // Change the AI model based on your preference
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer VPuwjt8Dpc30wjpa0pPTdjOzWIvrSjCE',
+                'Authorization': 'Bearer ', // You need to manually place your own API key for the AI Assistant to work
             },
             body: JSON.stringify({
                 model: "open-mistral-nemo",

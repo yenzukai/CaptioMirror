@@ -231,8 +231,8 @@
 
                     // Use Unreal Speech API to speak the greeting
                     async function SpeechSpeak(text) {
-                        const API_BASE_URL = "https://api.v7.unrealspeech.com/stream";
-                        const API_KEY = "Bearer 7Yfzp1sQCgAYVzit3FezIFz5e2Ubn5clyEW3j1wp6I1IHb5iRd11Gr"; 
+                        const API_BASE_URL = "https://api.v7.unrealspeech.com/stream";  // Change the Text-to-Speech API based on what you preferred to put in
+                        const API_KEY = "Bearer "; // You need to manually place your own API key for this to work
                         const VOICE_ID = '<?= $aiPreferences['voice_assistant'] ?>' || 'Will';
 
                         try {

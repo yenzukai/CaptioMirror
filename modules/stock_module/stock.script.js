@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
 });
 
 function getStockPrices(symbols) {
-    const apiKey = 'tI06EqQDRpCRjhQi6EzfPYzOBDA5rUNV';
+    const apiKey = '';  // You need to manually place your own API key for the stock module to retrieve real-time data from Polygon API
 
     const fetchStockData = async (symbol) => {
         const url = `https://api.polygon.io/v1/open-close/${symbol}/2023-01-09?adjusted=true&apiKey=${apiKey}`;

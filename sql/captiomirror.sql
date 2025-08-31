@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 30, 2025 at 10:51 PM
+-- Generation Time: Aug 31, 2025 at 09:26 PM
 -- Server version: 10.10.2-MariaDB
 -- PHP Version: 8.1.13
 
@@ -37,17 +37,7 @@ CREATE TABLE IF NOT EXISTS `ai_assistant_preferences` (
   `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `ai_assistant_preferences`
---
-
-INSERT INTO `ai_assistant_preferences` (`id`, `user_id`, `assistant_name`, `voice_assistant`, `assistant_style`, `last_updated`) VALUES
-(24, 19, 'Ayi', 'Google US English', 'Personal Financial Advisor', '2024-09-16 01:46:58'),
-(20, 3, 'Jason', 'Will', 'A math tutor who helps students of all levels understand and solve mathematical problems', '2024-11-04 01:58:41'),
-(27, 24, 'Alexa', 'Will', 'A friendly assistant who loves to chat and assist with the user', '2024-11-04 06:17:37'),
-(29, 27, 'Alex', 'Will', 'A friendly assistant who loves to chat and assist with the user', '2025-08-30 21:27:32');
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -61,21 +51,7 @@ CREATE TABLE IF NOT EXISTS `modules` (
   `name` varchar(255) NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `modules`
---
-
-INSERT INTO `modules` (`id`, `name`, `active`) VALUES
-(1, 'DateTime', 1),
-(2, 'Weather', 1),
-(3, 'Stock Prices', 1),
-(4, 'Quote of the Day', 1),
-(5, 'Assistant', 1),
-(6, 'Todo Lists', 1),
-(7, 'Scheduler', 1),
-(8, 'Music Player', 1);
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -93,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `is_cleared` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -110,17 +86,7 @@ CREATE TABLE IF NOT EXISTS `reload_flags` (
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `reload_flags`
---
-
-INSERT INTO `reload_flags` (`id`, `user_id`, `reload`, `created_at`, `updated_at`) VALUES
-(49, 3, 0, '2024-09-03 13:56:41', '2024-12-16 02:40:21'),
-(58, 19, 0, '2024-09-16 01:44:02', '2024-09-16 01:48:37'),
-(60, 24, 0, '2024-11-04 06:14:19', '2024-11-04 06:29:45'),
-(62, 27, 0, '2025-08-30 21:05:01', '2025-08-30 22:26:01');
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -141,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `schedules` (
   `notified` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -159,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `schedules_history` (
   `alarm_before` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -178,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `session_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=258 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -203,17 +169,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `email`, `phone_number`, `date_of_birth`, `password`, `verification_code`, `remember_token`, `email_verified_at`, `created_at`, `profile_picture`, `background_path`) VALUES
-(3, 'yenzukai', 'rinkashixd@gmail.com', '+639664809996', '2002-12-29', '$2y$10$j.lMzPOe9C4n08U2dBoGxeb/CYB/zRyu1fIXZH3lJt5CicbbOOjTy', '313868', NULL, '2024-08-19 09:32:29', '2024-08-18 12:44:09', '../uploads/profile_pictures/yenzukai_66f2602dad9f7.png', '../uploads/background_logo/yenzukai_6726413e4643a.png'),
-(19, 'maaars_', 'gabaymadolores@gmail.com', '09165554966', '2003-08-21', '$2y$10$lsYJHcJiUQUApoCyrz3MP.pN805K38r.QQm2ciB3d5xM45vYHqMGW', '179801', NULL, '2024-09-16 09:42:26', '2024-09-16 01:34:25', NULL, NULL),
-(27, 'emjay', 'emjayprojas@gmail.com', '+639935320145', '2002-12-29', '$2y$10$gli2xOXE1bs4FFz3nbtY5.GRU0ujqA/3MDfsqQxMSQZA43ss7478O', '156790', NULL, '2025-08-31 05:03:06', '2025-08-30 21:02:12', '../assets/svg/account-avatar-default.svg', NULL),
-(24, 'Rogel', 'rogelnavarro74@gmail.com', '09984518951', NULL, '$2y$10$lYGsgKJHWSu6yBVkqnCiHuOZDtYi2VfbYFYaz7glEh/Es0N84UZN6', '169239', NULL, '2024-11-04 14:13:29', '2024-11-04 06:12:36', NULL, NULL);
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -248,43 +204,6 @@ CREATE TABLE IF NOT EXISTS `user_modules` (
   KEY `module_id` (`module_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `user_modules`
---
-
-INSERT INTO `user_modules` (`user_id`, `module_id`, `active`, `last_updated`) VALUES
-(3, 1, 1, '2024-11-21 15:03:23'),
-(3, 4, 1, '2024-11-21 15:03:23'),
-(3, 3, 1, '2024-11-21 15:03:23'),
-(3, 2, 1, '2024-11-21 15:03:23'),
-(3, 5, 1, '2024-11-21 15:03:23'),
-(24, 5, 1, '2024-11-04 06:14:19'),
-(24, 3, 1, '2024-11-04 06:14:19'),
-(24, 7, 1, '2024-11-04 06:14:19'),
-(24, 2, 1, '2024-11-04 06:14:19'),
-(24, 1, 1, '2024-11-04 06:14:19'),
-(3, 6, 1, '2024-11-21 15:03:23'),
-(24, 6, 1, '2024-11-04 06:14:19'),
-(19, 5, 1, '2024-09-16 01:44:44'),
-(19, 1, 1, '2024-09-16 01:44:44'),
-(19, 4, 1, '2024-09-16 01:44:44'),
-(19, 3, 1, '2024-09-16 01:44:44'),
-(19, 6, 1, '2024-09-16 01:44:44'),
-(19, 2, 1, '2024-09-16 01:44:44'),
-(3, 7, 1, '2024-11-21 15:03:23'),
-(24, 4, 0, '2024-11-04 06:14:19'),
-(25, 6, 1, '2024-11-12 08:56:48'),
-(25, 2, 1, '2024-11-12 08:56:48'),
-(3, 8, 1, '2024-11-21 15:03:23'),
-(27, 5, 1, '2025-08-30 21:05:01'),
-(27, 1, 1, '2025-08-30 21:05:01'),
-(27, 8, 1, '2025-08-30 21:05:01'),
-(27, 4, 1, '2025-08-30 21:05:01'),
-(27, 7, 1, '2025-08-30 21:05:01'),
-(27, 3, 1, '2025-08-30 21:05:01'),
-(27, 6, 1, '2025-08-30 21:05:01'),
-(27, 2, 1, '2025-08-30 21:05:01');
-
 -- --------------------------------------------------------
 
 --
@@ -302,17 +221,7 @@ CREATE TABLE IF NOT EXISTS `user_preferences` (
   `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `user_preferences`
---
-
-INSERT INTO `user_preferences` (`id`, `user_id`, `weather_location`, `date_time_format`, `show_background`, `text_size`, `last_updated`) VALUES
-(30, 24, 'New York', 'en-US', 1, 'normal', '2024-11-04 06:14:29'),
-(27, 19, 'Goa, Camarines Sur', 'en-US', 1, 'normal', '2024-09-16 01:46:58'),
-(23, 3, 'Lagonoy, Camarines Sur', 'en-US', 1, 'normal', '2024-12-16 02:04:57'),
-(32, 27, 'Manila', 'en-US', 1, 'normal', '2025-08-30 22:26:00');
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -328,26 +237,7 @@ CREATE TABLE IF NOT EXISTS `user_stock_symbols` (
   `last_updated` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=530 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `user_stock_symbols`
---
-
-INSERT INTO `user_stock_symbols` (`id`, `user_id`, `stock_symbol`, `last_updated`) VALUES
-(472, 22, 'TSLA', '2024-09-25 07:10:00'),
-(511, 3, 'AAPL', '2024-11-04 01:58:41'),
-(510, 3, 'GOOGL', '2024-11-04 01:58:41'),
-(509, 3, 'TSLA', '2024-11-04 01:58:41'),
-(418, 19, 'TSLA', '2024-09-16 01:46:58'),
-(417, 19, 'GOOGL', '2024-09-16 01:46:58'),
-(416, 19, 'AAPL', '2024-09-16 01:46:58'),
-(517, 24, 'AAPL', '2024-11-04 06:17:37'),
-(516, 24, 'GOOGL', '2024-11-04 06:17:37'),
-(515, 24, 'TSLA', '2024-11-04 06:17:37'),
-(529, 27, 'AAPL', '2025-08-30 22:26:00'),
-(528, 27, 'GOOGL', '2025-08-30 22:26:00'),
-(527, 27, 'TSLA', '2025-08-30 22:26:00');
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -365,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `user_todo_lists` (
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

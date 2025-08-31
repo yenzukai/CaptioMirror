@@ -4,7 +4,7 @@ window.addEventListener('load', function() {
 });
 
 function getWeather(location) { 
-    const apiKey = "f558907a7617443b8c1220304253008";
+    const apiKey = "";  // You need to manually put your own API key for this weather data app. Register on WeatherAPI for the free API key
     const currentWeatherURL = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3`;
     fetch(currentWeatherURL)
         .then(response => response.json())
